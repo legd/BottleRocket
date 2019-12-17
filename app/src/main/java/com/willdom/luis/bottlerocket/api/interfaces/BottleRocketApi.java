@@ -5,14 +5,18 @@ import com.willdom.luis.bottlerocket.api.models.StoreResults;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
+/**
+ * Interface to define the BottleRocket API.
+ *
+ * @author Luis Guzman
+ */
 public interface BottleRocketApi {
 
-
     /**
-     * Method to search the given phrase in the server database.
+     * Method to get all the stores.
      *
-     * @return SearchResult object containing the server response
+     * @return StoreResults object containing a list of stores
      */
-    @GET("/stores")
+    @GET("stores.json")
     Call<StoreResults> getStores();
 }

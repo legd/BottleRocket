@@ -3,6 +3,11 @@ package com.willdom.luis.bottlerocket.api.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Class to represent the API model for a Store.
+ *
+ * @author Luis Guzman
+ */
 public class Store {
 
     @SerializedName("address")

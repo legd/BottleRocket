@@ -15,13 +15,16 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "API_URL", "\"http://sandbox.bottlerocketapps.com/BR_Android_CodingExam_2015_Server/\""
+            buildConfigField "String", "ENCRIPTION_KEY", "\"5hIhfBW53WbLE6#zWSvGqzB83v14deXcl5jJR@LESAs1HNmuMMScXi*q8YdUIWJ3\""
         }
 
         debug {
             debug {
                 minifyEnabled false
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-                buildConfigField "String", "API_URL", "\"http://sandbox.bottlerocketapps.com/BR_Android_CodingExam_2015_Server\""
+                buildConfigField "String", "API_URL", "\"http://sandbox.bottlerocketapps.com/BR_Android_CodingExam_2015_Server/\""
+                buildConfigField "String", "ENCRIPTION_KEY", "\"5hIhfBW53WbLE6#zWSvGqzB83v14deXcl5jJR@LESAs1HNmuMMScXi*q8YdUIWJ3\""
                 debuggable true
             }
         }
@@ -38,8 +41,8 @@ dependencies {
 
     // Retrofit2
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 }

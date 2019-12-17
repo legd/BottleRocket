@@ -5,6 +5,11 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * Class to represent the API model for a store list response.
+ *
+ * @author Luis Guzman
+ */
 public class StoreResults {
 
     @SerializedName("stores")
