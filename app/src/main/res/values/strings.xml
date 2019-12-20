@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BottleRocket</string>
+    <string name="phone_number_holder">000&#8211;000&#8211;0000</string>
+    <string name="address_holder">7545 NW St. Miami</string>
 </resources>

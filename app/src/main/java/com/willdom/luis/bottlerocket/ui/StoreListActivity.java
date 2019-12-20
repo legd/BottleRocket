@@ -4,28 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.willdom.luis.bottlerocket.BuildConfig;
 import com.willdom.luis.bottlerocket.R;
-import com.willdom.luis.bottlerocket.api.BottleRocketApiClient;
 import com.willdom.luis.bottlerocket.api.interfaces.BottleRocketApi;
-import com.willdom.luis.bottlerocket.api.models.StoreResults;
 import com.willdom.luis.bottlerocket.models.Store;
 import com.willdom.luis.bottlerocket.viewmodel.StoresViewModel;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+public class StoreListActivity extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity {
-
-    private static final String TAG = MainActivity.class.getName();
+    private static final String TAG = StoreListActivity.class.getName();
     private BottleRocketApi mApiClient;
 
     private StoresViewModel mStoresViewModel;
@@ -33,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.store_list);
 
         mStoresViewModel = ViewModelProviders.of(this).get(StoresViewModel.class);
         mStoresViewModel.init();
