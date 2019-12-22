@@ -14,17 +14,17 @@ public class StoreResults {
 
     @SerializedName("stores")
     @Expose
-    private List<Store> mStores;
+    private List<ApiStoreModel> mStores;
 
     //===========================================================================
     //                         GETTERS AND SETTERS
     //===========================================================================
 
-    public List<Store> getStores() {
+    public List<ApiStoreModel> getStores() {
         return mStores;
     }
 
-    public void setStores(List<Store> stores) {
+    public void setStores(List<ApiStoreModel> stores) {
         this.mStores = stores;
     }
 }

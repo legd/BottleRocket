@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  *
  * @author Luis Guzman
  */
-public class Store {
+public class ApiStoreModel {
 
     @SerializedName("address")
     @Expose
@@ -49,6 +49,28 @@ public class Store {
     @SerializedName("state")
     @Expose
     private String mState;
+
+    //===========================================================================
+    //                         CONSTRUCTOR
+    //===========================================================================
+
+
+    public ApiStoreModel() {
+    }
+
+    public ApiStoreModel(com.willdom.luis.bottlerocket.database.models.Store databaseStore) {
+
+        this.mAddress = databaseStore.getAddress();
+        this.mCity = databaseStore.getCity();
+        this.mName = databaseStore.getName();
+        this.mLatitude = databaseStore.getLatitude();
+        this.mZipcode = databaseStore.getZipcode();
+        this.mStoreLogoUrl = databaseStore.getStoreLogoUrl();
+        this.mPhone = databaseStore.getPhone();
+        this.mLongitude = databaseStore.getLongitude();
+        this.mStoreId = databaseStore.getStoreId();
+        this.mState = databaseStore.getState();
+    }
 
     //===========================================================================
     //                         GETTERS AND SETTERS

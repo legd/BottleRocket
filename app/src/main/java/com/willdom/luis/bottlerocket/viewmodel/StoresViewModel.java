@@ -8,23 +8,28 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 
-import com.willdom.luis.bottlerocket.models.Store;
+import com.willdom.luis.bottlerocket.api.models.ApiStoreModel;
 import com.willdom.luis.bottlerocket.repositories.StoreRepository;
 
 import java.util.List;
 
 /**
- * Created by luis on 2019-12-19
+ * @author Luis Guzman
  */
 public class StoresViewModel extends AndroidViewModel {
 
-    private MutableLiveData<List<Store>> mStores;
+    private MutableLiveData<List<ApiStoreModel>> mStores;
     private StoreRepository mStoreRepository;
+
+
 
     public StoresViewModel(@NonNull Application application) {
         super(application);
     }
 
+    /**
+     *
+     */
     public void init() {
         if(mStoreRepository != null) {
             return;
@@ -32,9 +37,18 @@ public class StoresViewModel extends AndroidViewModel {
 
         mStoreRepository = StoreRepository.getInstance();
         mStores = mStoreRepository.getStores();
+//        mStores.setValue(mStoreRepository.getStores().getValue());
     }
 
-    public LiveData<List<Store>> getStores() {
+    /**
+     *
+     * @return
+     */
+    public LiveData<List<ApiStoreModel>> getStores() {
         return mStores;
+    }
+
+    public LiveData<Boolean> isLoading() {
+        return mStoreRepository.isLoading();
     }
 }

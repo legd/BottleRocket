@@ -43,10 +43,19 @@ public class BottleRocketApiClient {
     private static final String TAG = BottleRocketApiClient.class.getName();
     private static BottleRocketApi sApiClient;
 
+    /**
+     * Private constructor for the Singleton pattern.
+     */
     private BottleRocketApiClient() {
 
     }
 
+    /**
+     * Method for the Singleton design pattern implementation.
+     *
+     * @param baseURL Url to be use for the API calls
+     * @return BottleRocketApi instance
+     */
     public static BottleRocketApi getInstance(String baseURL) {
 
         if(sApiClient == null) {

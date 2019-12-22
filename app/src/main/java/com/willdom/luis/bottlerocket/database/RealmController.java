@@ -13,13 +13,19 @@ import io.realm.RealmConfiguration;
 /**
  * Class for wrapping the Realm initialization and configuration for the default Realm instance.
  *
- * @author  by Luis Guzman
+ * @author Luis Guzman
  */
 public class RealmController {
 
     private static final String TAG = RealmController.class.getName();
     private static final char[] hexArray = "0123456789ABCDEF".toCharArray();
 
+    /**
+     * Method in charge to initialize the default Realm instance.
+     *
+     * @param context Application context
+     * @return Default Realm instance
+     */
     public static Realm initializeConfiguration(Context context) {
 
         // This is a basic encryption example for production another approach is need it

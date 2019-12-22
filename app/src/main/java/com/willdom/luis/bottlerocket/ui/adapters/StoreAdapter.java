@@ -12,22 +12,33 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.willdom.luis.bottlerocket.R;
-import com.willdom.luis.bottlerocket.models.Store;
+import com.willdom.luis.bottlerocket.api.models.ApiStoreModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by luis on 2019-12-20
+ * Class of the custom adapter for the store list.
+ *
+ * @author Luis Guzman
  */
 public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHolder> {
 
     private static final String TAG = StoreAdapter.class.getName();
     private Context mContext;
-    private OnClickListItemListener mOnClickListItemListener;
-    private List<Store> mStores;
+    private OnStoreListClickItemListener mOnClickListItemListener;
+    private List<ApiStoreModel> mStores;
 
-    public StoreAdapter(Context context, OnClickListItemListener onClickListItemListener) {
+    public StoreAdapter(Context context, List<ApiStoreModel> stores, OnStoreListClickItemListener
+            onClickListItemListener) {
+
+        this.mStores = stores;
+        this.mContext = context;
+        this.mOnClickListItemListener = onClickListItemListener;
+    }
+
+    public StoreAdapter(Context context, OnStoreListClickItemListener onClickListItemListener) {
+
         this.mStores = new ArrayList<>();
         this.mContext = context;
         this.mOnClickListItemListener = onClickListItemListener;
@@ -59,6 +70,15 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
         return this.mStores.size();
     }
 
+    public void updateList(List<ApiStoreModel> storeList) {
+
+        if(storeList != null) {
+            this.mStores.clear();
+            this.mStores = storeList;
+            this.notifyDataSetChanged();
+        }
+    }
+
 
     //===========================================================================
     //                           PRIVATE CLASSES
@@ -74,9 +94,9 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
         private ImageView mLogo;
         private TextView mPhoneNumber;
         private TextView mAddress;
-        private OnClickListItemListener mOnStoreClickListener;
+        private OnStoreListClickItemListener mOnStoreClickListener;
 
-        StoreViewHolder(@NonNull View itemView, OnClickListItemListener storeListener) {
+        StoreViewHolder(@NonNull View itemView, OnStoreListClickItemListener storeListener) {
             super(itemView);
 
             mLogo = itemView.findViewById(R.id.store_logo);
@@ -100,7 +120,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
     /**
      * Interface containing the method responsible for the OnClick event in a row.
      */
-    public interface OnClickListItemListener {
+    public interface OnStoreListClickItemListener {
         void onItemClicked(int position);
     }
 }

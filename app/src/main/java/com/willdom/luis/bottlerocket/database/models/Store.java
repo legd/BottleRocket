@@ -1,8 +1,15 @@
 package com.willdom.luis.bottlerocket.database.models;
 
+import com.willdom.luis.bottlerocket.api.models.ApiStoreModel;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
+/**
+ * Class to represent the table model for a Store.
+ *
+ * @author Luis Guzman
+ */
 public class Store extends RealmObject {
 
     @PrimaryKey
@@ -18,9 +25,29 @@ public class Store extends RealmObject {
     private String mState;
 
     //======================================================
-    //                  GETTERS AND SETTERS
+    //                  CONSTRUCTOR
     //======================================================
 
+    public Store() {
+    }
+
+    public Store(ApiStoreModel apiStore) {
+
+        this.mAddress = apiStore.getAddress();
+        this.mCity = apiStore.getCity();
+        this.mName = apiStore.getName();
+        this.mLatitude = apiStore.getLatitude();
+        this.mZipcode = apiStore.getZipcode();
+        this.mStoreLogoUrl = apiStore.getStoreLogoUrl();
+        this.mPhone = apiStore.getPhone();
+        this.mLongitude = apiStore.getLongitude();
+        this.mStoreId = apiStore.getStoreId();
+        this.mState = apiStore.getState();
+    }
+
+    //======================================================
+    //                  GETTERS AND SETTERS
+    //======================================================
 
     public String getStoreId() {
         return mStoreId;
