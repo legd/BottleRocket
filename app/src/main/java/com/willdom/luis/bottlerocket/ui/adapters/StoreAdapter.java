@@ -1,10 +1,12 @@
 package com.willdom.luis.bottlerocket.ui.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.willdom.luis.bottlerocket.R;
 import com.willdom.luis.bottlerocket.api.models.ApiStoreModel;
+import com.willdom.luis.bottlerocket.ui.StoreDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,22 +29,18 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
 
     private static final String TAG = StoreAdapter.class.getName();
     private Context mContext;
-    private OnStoreListClickItemListener mOnClickListItemListener;
     private List<ApiStoreModel> mStores;
 
-    public StoreAdapter(Context context, List<ApiStoreModel> stores, OnStoreListClickItemListener
-            onClickListItemListener) {
+    public StoreAdapter(Context context, List<ApiStoreModel> stores) {
 
         this.mStores = stores;
         this.mContext = context;
-        this.mOnClickListItemListener = onClickListItemListener;
     }
 
-    public StoreAdapter(Context context, OnStoreListClickItemListener onClickListItemListener) {
+    public StoreAdapter(Context context) {
 
         this.mStores = new ArrayList<>();
         this.mContext = context;
-        this.mOnClickListItemListener = onClickListItemListener;
     }
 
     @NonNull
@@ -50,7 +49,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.store_list_item,
                 parent, false);
 
-        return new StoreViewHolder(view, mOnClickListItemListener);
+        return new StoreViewHolder(view);
     }
 
     @Override
@@ -63,6 +62,22 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
 
         holder.mPhoneNumber.setText(mStores.get(position).getPhone());
         holder.mAddress.setText(mStores.get(position).getAddress());
+
+        holder.mParentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent storeDetailIntent = new Intent(mContext, StoreDetailsActivity.class);
+                storeDetailIntent.putExtra("name", mStores.get(position).getName());
+                storeDetailIntent.putExtra("number", mStores.get(position).getPhone());
+                storeDetailIntent.putExtra("address", mStores.get(position).getAddress());
+                storeDetailIntent.putExtra("city", mStores.get(position).getCity());
+                storeDetailIntent.putExtra("zipcode", mStores.get(position).getZipcode());
+                storeDetailIntent.putExtra("state", mStores.get(position).getState());
+                storeDetailIntent.putExtra("latitude", mStores.get(position).getLatitude());
+                storeDetailIntent.putExtra("longitude", mStores.get(position).getLongitude());
+                mContext.startActivity(storeDetailIntent);
+            }
+        });
     }
 
     @Override
@@ -70,6 +85,14 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
         return this.mStores.size();
     }
 
+    //===========================================================================
+    //                           CUSTOM METHODS
+    //===========================================================================
+
+    /**
+     *
+     * @param storeList
+     */
     public void updateList(List<ApiStoreModel> storeList) {
 
         if(storeList != null) {
@@ -77,6 +100,15 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
             this.mStores = storeList;
             this.notifyDataSetChanged();
         }
+    }
+
+    /**
+     *
+     * @param index
+     * @return
+     */
+    public ApiStoreModel getStoreItem(int index) {
+        return this.mStores.get(index);
     }
 
 
@@ -88,39 +120,20 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
      * Class for the implementation of the ViewHolder design pattern used to represent the stores
      * rows.
      */
-    public static class StoreViewHolder extends RecyclerView.ViewHolder implements
-            View.OnClickListener {
+    public static class StoreViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView mLogo;
         private TextView mPhoneNumber;
         private TextView mAddress;
-        private OnStoreListClickItemListener mOnStoreClickListener;
+        private RelativeLayout mParentLayout;
 
-        StoreViewHolder(@NonNull View itemView, OnStoreListClickItemListener storeListener) {
+        StoreViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mLogo = itemView.findViewById(R.id.store_logo);
             mPhoneNumber =  itemView.findViewById(R.id.store_phone_number);
             mAddress = itemView.findViewById(R.id.store_address);
-            mOnStoreClickListener = storeListener;
-
-            itemView.setOnClickListener(this);
+            mParentLayout = itemView.findViewById(R.id.list_item_layout);
         }
-
-        @Override
-        public void onClick(View v) {
-            mOnStoreClickListener.onItemClicked(getAdapterPosition());
-        }
-    }
-
-    //===========================================================================
-    //                           INTERFACE
-    //===========================================================================
-
-    /**
-     * Interface containing the method responsible for the OnClick event in a row.
-     */
-    public interface OnStoreListClickItemListener {
-        void onItemClicked(int position);
     }
 }

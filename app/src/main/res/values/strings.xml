@@ -2,4 +2,10 @@
     <string name="app_name">BottleRocket</string>
     <string name="phone_number_holder">000&#8211;000&#8211;0000</string>
     <string name="address_holder">7545 NW St. Miami</string>
+    <string name="title_label">Store details</string>
+    <string name="name_label">Name</string>
+    <string name="number_label">Phone number</string>
+    <string name="address_label">Address</string>
+    <string name="map_label">See on map&#8230;</string>
+
 </resources>

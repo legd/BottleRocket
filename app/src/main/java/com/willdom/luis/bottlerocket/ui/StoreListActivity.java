@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +25,7 @@ import java.util.List;
  *
  * @author Luis Guzman
  */
-public class StoreListActivity extends AppCompatActivity implements StoreAdapter.OnStoreListClickItemListener {
+public class StoreListActivity extends AppCompatActivity {
 
     private static final String TAG = StoreListActivity.class.getName();
     private ProgressBar mProgressBar;
@@ -64,15 +65,6 @@ public class StoreListActivity extends AppCompatActivity implements StoreAdapter
         });
 
         initRecyclerView();
-
-
-//        Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4194");
-//        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-//        mapIntent.setPackage("com.google.android.apps.maps");
-//        if (mapIntent.resolveActivity(getPackageManager()) != null) {
-//            startActivity(mapIntent);
-//        }
-
     }
 
     /**
@@ -84,15 +76,10 @@ public class StoreListActivity extends AppCompatActivity implements StoreAdapter
 //        mStoreAdapter = new StoreAdapter(this, mStoresViewModel.getStores().getValue(),
 //                this);
 
-        mStoreAdapter = new StoreAdapter(this,this);
+        mStoreAdapter = new StoreAdapter(this);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mStoreList.setLayoutManager(layoutManager);
         mStoreList.setAdapter(mStoreAdapter);
-    }
-
-    @Override
-    public void onItemClicked(int position) {
-
     }
 }
