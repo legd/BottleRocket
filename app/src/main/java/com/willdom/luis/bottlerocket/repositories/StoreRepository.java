@@ -1,8 +1,6 @@
 package com.willdom.luis.bottlerocket.repositories;
 
 import android.util.Log;
-
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.willdom.luis.bottlerocket.BuildConfig;
@@ -32,7 +30,11 @@ public class StoreRepository {
     private static final String TAG = StoreRepository.class.getName();
     private static StoreRepository sInstance;
     private BottleRocketApi mApiClient;
-    private MutableLiveData<Boolean> mIsLoading = new MutableLiveData<>();
+    private MutableLiveData<StoreRepositoryState> mIsLoading = new MutableLiveData<>();
+
+    //===========================================================================
+    //                           CONSTRUCTORS
+    //===========================================================================
 
     /**
      * Private constructor for the Singleton pattern.
@@ -54,15 +56,21 @@ public class StoreRepository {
         return sInstance;
     }
 
+    //===========================================================================
+    //                           CUSTOM METHOD
+    //===========================================================================
+
     /**
+     * Method in charge to fetch the store data from the API or the database, depending of the
+     * circumstances.
      *
-     *
-     * @return LiveData list of store objects
+     * @return LiveData object of type List containing the stores
      */
-//    public LiveData<List<ApiStoreModel>> getStores() {
     public MutableLiveData<List<ApiStoreModel>> getStores() {
 
-        mIsLoading.setValue(true);
+        mIsLoading.setValue(new StoreRepositoryState(true, StoreRepositoryState.Result
+                .UNDEFINED, null));
+
         final MutableLiveData<List<ApiStoreModel>> storesData = new MutableLiveData<>();
         AtomicBoolean isDatabaseEmpty = new AtomicBoolean(false);
 
@@ -81,7 +89,8 @@ public class StoreRepository {
                     }
 
                     storesData.setValue(newStores);
-                    mIsLoading.setValue(false);
+                    mIsLoading.setValue(new StoreRepositoryState(false,
+                            StoreRepositoryState.Result.SUCCESS, "No new data to fetch"));
                 }
             });
         }
@@ -96,14 +105,17 @@ public class StoreRepository {
                     Log.i(TAG, "onResponse: List size " + response.body().getStores().size());
                     storesData.postValue(response.body().getStores());
                     addNewStore(response.body().getStores());
-                    mIsLoading.postValue(false);
+                    mIsLoading.postValue(new StoreRepositoryState(false,
+                            StoreRepositoryState.Result.SUCCESS, null));
                 }
 
                 @Override
                 public void onFailure(Call<StoreResults> call, Throwable error) {
                     Log.e(TAG, "Request failed while communicating with server: ", error);
                     storesData.postValue(null);
-                    mIsLoading.postValue(false);
+                    mIsLoading.postValue(new StoreRepositoryState(false,
+                            StoreRepositoryState.Result.ERROR,
+                            "Request failed while communicating with server: " + error.getMessage()));
                 }
             });
         }
@@ -131,10 +143,11 @@ public class StoreRepository {
     }
 
     /**
+     * Method in charge to return the loading status of the repository.
      *
-     * @return
+     * @return LiveData object of type StoreRepositoryState object containing the loading status info
      */
-    public MutableLiveData<Boolean> isLoading() {
+    public MutableLiveData<StoreRepositoryState> isLoading() {
         return this.mIsLoading;
     }
 }

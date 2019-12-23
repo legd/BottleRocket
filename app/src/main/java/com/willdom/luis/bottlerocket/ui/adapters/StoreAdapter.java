@@ -31,17 +31,19 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
     private Context mContext;
     private List<ApiStoreModel> mStores;
 
-    public StoreAdapter(Context context, List<ApiStoreModel> stores) {
-
-        this.mStores = stores;
-        this.mContext = context;
-    }
+    //===========================================================================
+    //                           CONSTRUCTOR
+    //===========================================================================
 
     public StoreAdapter(Context context) {
 
         this.mStores = new ArrayList<>();
         this.mContext = context;
     }
+
+    //===========================================================================
+    //                           OVERRIDE METHODS
+    //===========================================================================
 
     @NonNull
     @Override
@@ -90,8 +92,9 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
     //===========================================================================
 
     /**
+     * Method in charge to update the list of store of the adapter.
      *
-     * @param storeList
+     * @param storeList New list of stores
      */
     public void updateList(List<ApiStoreModel> storeList) {
 
@@ -101,16 +104,6 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
             this.notifyDataSetChanged();
         }
     }
-
-    /**
-     *
-     * @param index
-     * @return
-     */
-    public ApiStoreModel getStoreItem(int index) {
-        return this.mStores.get(index);
-    }
-
 
     //===========================================================================
     //                           PRIVATE CLASSES

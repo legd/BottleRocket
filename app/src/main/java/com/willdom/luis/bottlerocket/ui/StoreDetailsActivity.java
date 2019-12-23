@@ -10,7 +10,17 @@ import android.widget.TextView;
 
 import com.willdom.luis.bottlerocket.R;
 
+/**
+ * Detail activity in charge to display store details.
+ *
+ * @author Luis Guzman
+ */
 public class StoreDetailsActivity extends AppCompatActivity {
+
+
+    //===========================================================================
+    //                           OVERRIDE METHODS
+    //===========================================================================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +50,6 @@ public class StoreDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 String geoLocation = "geo:" + latitude + "," + longitude;
-//                Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4194");
                 Uri gmmIntentUri = Uri.parse(geoLocation);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
@@ -52,12 +61,17 @@ public class StoreDetailsActivity extends AppCompatActivity {
 
     }
 
+    //===========================================================================
+    //                           CUSTOM METHOD
+    //===========================================================================
+
     /**
+     * Method in charge to format the whole address into one String.
      *
-     * @param address
-     * @param city
-     * @param zipcode
-     * @param state
+     * @param address first line address
+     * @param city city in the address
+     * @param zipcode zipcode in the address
+     * @param state state in the address
      * @return String with full address formatted
      */
     private String formatAddress(String address, String city, String state, String zipcode) {
